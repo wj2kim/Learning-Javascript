@@ -1,5 +1,7 @@
 # Professional JavaScript for Web Developers, 4th Edition 공부 자료
 
+![JavaScriptForWebDevelopers](https://user-images.githubusercontent.com/51187508/104849536-8aae2100-592d-11eb-8098-70236d364e1a.jpg)
+
 ### 책의 주요 포인트만 뽑아서 정리함
 
 ---
