@@ -134,7 +134,7 @@ multi-line comment *
 
 - 문장은 세미콜론 (; ) 을 끝으로 완료됨
 
-```JSX
+```js
 let diff = a - b // 권장 안함 
 let diff = a - b; // 권장 
 ```
