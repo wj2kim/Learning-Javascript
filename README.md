@@ -134,7 +134,7 @@ multi-line comment *
 
 - 문장은 세미콜론 (; ) 을 끝으로 완료됨
 
-```js
+```
 let diff = a - b // 권장 안함 
 let diff = a - b; // 권장 
 ```
@@ -142,7 +142,7 @@ let diff = a - b; // 권장
 - 생략때문에 생기는 에러를 사전에 방지할 수 있다. 예를 들어 타이핑이 끝나지 않았다는 것을 알수 있다는 점
 - 어떠한 상황에서는 세미콜론을 넣으면 parsers 가 syntax 에러를 바로잡을려고 하기 때문에  퍼포먼스도 증가한다
 
-```JSX
+```
 if (test) 
 	console.log(test);  // 돌아가지만 비추천 error-prone
 
