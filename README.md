@@ -83,27 +83,27 @@
 
 <script> 태그로 자바스크립트 자원을 불러오는 것으로 국한되어 있지 않다. DOM API 를 사용해서 불러오는 방법도 있다. 
 
-<pre><code>
+```jsx
 let script = document.createElement('script');
 script.scr = 'gibbersh.js';
 document.head.appendChild(scipt);
-</code></pre>
+```
 
 하지만 이러한 방식은 브라우저 preloaders 가 알지 못한다. 그렇기 때문에 자원을 fetch 하는 queue의 우선순위에 지장을 준다. 아래와 같은 방식으로 preloaders 에 해당 스크립트를 사용할것이라고  인지 시켜줄 수 있다. 
 
-<pre><code>
+```jsx
 <link rel="subresource" href="gibberish.js">
-</code></pre>
+```
 
 # <noscript>
 
-<pre><code>
+```jsx
 <body>
  <noscript>
   <p>This page requires a Javascript-enabled browser.</p>
  </noscript>
 </body>
-</code></pre>
+```
 
 해당 메시지는 오직 자바스크립트를 지원하지 않는 브라우저 환경에서만 보인다. 
 
@@ -134,20 +134,20 @@ multi-line comment *
 
 - 문장은 세미콜론 (; ) 을 끝으로 완료됨
 
-<pre><code>
+```jsx
 let diff = a - b // 권장 안함 
 let diff = a - b; // 권장 
-</code></pre>
+```
 
 - 생략때문에 생기는 에러를 사전에 방지할 수 있다. 예를 들어 타이핑이 끝나지 않았다는 것을 알수 있다는 점
 - 어떠한 상황에서는 세미콜론을 넣으면 parsers 가 syntax 에러를 바로잡을려고 하기 때문에  퍼포먼스도 증가한다
 
-<pre><code>
+```jsx
 if (test) 
 	console.log(test);  // 돌아가지만 비추천 error-prone
 
 if (test) { console.log(test); // 추천
 }  
-</code></pre>
+```
 
 - 이 문장에서 code blocks 를 사용하는 것이 더 직관적이며 문장에 무언가가 추가될때 에러를 줄일 수 있다
