@@ -97,13 +97,15 @@ document.head.appendChild(scipt);
 
 # <noscript>
 
-```jsx
+<pre>
+<code>
 <body>
  <noscript>
   <p>This page requires a Javascript-enabled browser.</p>
  </noscript>
 </body>
-```
+</code>
+</pre>
 
 해당 메시지는 오직 자바스크립트를 지원하지 않는 브라우저 환경에서만 보인다. 
 
