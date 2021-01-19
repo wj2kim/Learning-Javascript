@@ -83,11 +83,11 @@
 
 <script> 태그로 자바스크립트 자원을 불러오는 것으로 국한되어 있지 않다. DOM API 를 사용해서 불러오는 방법도 있다. 
 
-```JSX
+<pre><code>
 let script = document.createElement('script');
 script.scr = 'gibbersh.js';
 document.head.appendChild(scipt);
-```
+</code></pre>
 
 하지만 이러한 방식은 브라우저 preloaders 가 알지 못한다. 그렇기 때문에 자원을 fetch 하는 queue의 우선순위에 지장을 준다. 아래와 같은 방식으로 preloaders 에 해당 스크립트를 사용할것이라고  인지 시켜줄 수 있다. 
 
