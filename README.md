@@ -74,3 +74,80 @@
 - <script> element 안에 있는 자바스크립트 코드는 위에서 아래로 interpret 된다.
 - 예를 들어 정의한 function은 interpret 되어 인터프리터 환경 속에 저장된다. 나머지 page content 는 <script>안에 있는 코드들이 모두 평가될때 까지 load 되지 않는다.
 - <script src = "example.js" /> 처럼 script 닫기 태그를 생략하고 하나로 퉁치는 것은 피해야한다. 해당 방식을 다루지 않는 브라우저들이 있다 특히나 인터넷 익스플로러
+    
+# 태그 위치
+
+전통적으로 <script> 엘리먼트는 <head> 엘리먼트 안에서 CSS file 과 함께 위치했었지만 그 뜻은 페이지가 렌더링을 시작하기 전에 ( 렌더링은 브라우저가 <body> 태그를 받을떄 시작한다 ) 모든 자바스크립트 코드가 다운로드 되고 파싱이 되고 interpre 가 된다는 의미이다. 만약 자바스크립트 코드의 양이 많다면 페이지가 렌더링 될떄 인지할만한 지연이 일어날것이다. 이러한 이유때문에 modern web application 에서는 <body>태그 안에 위치 한다. ( 자바스크립 코드가 processed 되기 전에 페이지가 모두 렌더링 된다) 사용자 입장에서 더 좋은 경험을 제공 받는다. 
+
+# Dynamic Script Loading
+
+<script> 태그로 자바스크립트 자원을 불러오는 것으로 국한되어 있지 않다. DOM API 를 사용해서 불러오는 방법도 있다. 
+
+```jsx
+let script = document.createElement('script');
+script.scr = 'gibbersh.js';
+document.head.appendChild(scipt);
+```
+
+하지만 이러한 방식은 브라우저 preloaders 가 알지 못한다. 그렇기 때문에 자원을 fetch 하는 queue의 우선순위에 지장을 준다. 아래와 같은 방식으로 preloaders 에 해당 스크립트를 사용할것이라고  인지 시켜줄 수 있다. 
+
+```jsx
+<link rel="subresource" href="gibberish.js">
+```
+
+# <noscript>
+
+```jsx
+<body>
+ <noscript>
+  <p>This page requires a Javascript-enabled browser.</p>
+ </noscript>
+</body>
+```
+
+해당 메시지는 오직 자바스크립트를 지원하지 않는 브라우저 환경에서만 보인다. 
+
+# 간단 요약
+
+- 자바스크립트는 <script> 엘리먼트를 통해 HTML 페이지에 insert 된다
+- HTML페이지에 직접 인라인 형식으로 마크업과 같이 있을 수 있거나 외부 파일에서 불러올 수 있다
+- async 속성은 다른 스크립트가 로딩될떄까지 기다린다거나 렌더링을 block 시키지 않는다. 그렇기 떄문에 로딩속도가 더 빠르지만 순서를 보장 못하기 때문에 불러오는 스크립트 간의 의존성이 있는지 확실히  하고 주의해서 사용해야한다.
+- defer 속성은 document가 렌더링이 끝날때까지 스크립트의 실행을 지연시켜준다. deffered scrpt 는 순차적으로 실행된다.
+- <nosciprt> 엘리먼트는 script를 지원하지 않는 브라우저에서 실행된다. 반대로 말하면 scipt를 지원하는 환경에서는 렌더링 되지 않는다.
+
+# Syntax
+
+## 식별자 (Identifiers)
+
+- first letter은 letter , _ (underscore) , $ (dollar sign)
+- 나머지는 letter,  _ (underscore) , $ (dollar sign), numbers
+- 식별자엔 다양한 letter, 즉 extended ASCII 혹은 Unicode letter characters를 사용할 수 있지만 을 권고하지는 않음.
+- 컨벤션은 카멜케이스
+
+## 주석 (Comments)
+
+- // single line comment
+- /* block comment 혹은 
+multi-line comment *
+
+## 문장 (Statements)
+
+- 문장은 세미콜론 (; ) 을 끝으로 완료됨
+
+```jsx
+let diff = a - b // 권장 안함 
+let diff = a - b; // 권장 
+```
+
+- 생략때문에 생기는 에러를 사전에 방지할 수 있다. 예를 들어 타이핑이 끝나지 않았다는 것을 알수 있다는 점
+- 어떠한 상황에서는 세미콜론을 넣으면 parsers 가 syntax 에러를 바로잡을려고 하기 때문에  퍼포먼스도 증가한다
+
+```jsx
+if (test) 
+	console.log(test);  // 돌아가지만 비추천 error-prone
+
+if (test) { console.log(test); // 추천
+}  
+```
+
+- 이 문장에서 code blocks 를 사용하는 것이 더 직관적이며 문장에 무언가가 추가될때 에러를 줄일 수 있다
