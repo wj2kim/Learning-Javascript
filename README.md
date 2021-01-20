@@ -151,3 +151,56 @@ if (test) { console.log(test); // 추천
 ```
 
 - 이 문장에서 code blocks 를 사용하는 것이 더 직관적이며 문장에 무언가가 추가될때 에러를 줄일 수 있다
+
+## 변수 (variables)
+
+- 변수를 생략하고 값을 대입하면 전역 변수로 정의됨 ( not recommended )
+- 호이스팅  : interpreter 가 선언된 var 변수들을 해당 scope 에서 가장 위에 배치 시킨다. 중복 선언이 가능하다.
+- let 은 블록 scoped, var 은 function scoped
+
+```jsx
+if (true) {
+	var name ='Paul';
+	console.log(name); // Paul
+}
+console.log(name); // Paul
+
+if (true) {
+	let age = 29;
+	console.log(age); //29
+}
+console.log(age); // ReferenceError: age is not defined
+```
+
+- age 변수는 if 블록 밖에서 참조 될 수 없음 , 블록 밖 scope 은 다르기 때문
+- 블록 scope 은 function scope의 stict 한 부분집합이다
+- 떄문에 var의 모든 scope 제한은 let에도 포함된다
+- let 은 같은 block scope 안에서 중복 변수 선언 불가능 ( Syntax Error )
+- let 은 var 과 다르게 호이스팅이 동작하지 않는다
+- var 과 다르게 let은 전역 변수로 선언할지라도 window object 에 속하지 않는다
+
+ 
+
+## 데이터 타입 ( Data Type )
+
+- 6개의 simple 데이터 타입이 있다 ( also called primitive types)
+- Undefined, Null, Boolean, Number, String, and Symbol
+- 1개의 complex 데이터 타입이 있다
+- Object
+
+## 연산자 타입 ( Type of Operator )
+
+- ECMAScript 는 loosely typed 이기 때문에 변수의 데이터 타입을 알 수 있는 방법이 있어야한다. typeof 를 사용하여 알 수 있다
+- typeof 는 function 이 아닌 연산자 이기 때문에 중괄호가 필요 없다
+- typeof null 은 "object"를 반환한다. special value 인 null 은 빈 object 참조 이기 때문이다
+- null type 의 값은 empty object pointer 이다. 그렇기 때문에 typeof null 은 object 이다.
+- undefined 은 null 로부터 파생되었기 때문에 null == undefined 는 true 가 된다
+- 넘버 타입의 소수점 (floating-point value) 는 interger value가 차지하는 메모리보다 두배를 더 차지하지만 자바스크립트는 .0으로 끝나는 소수점을 interger로 변환해서 저장한다
+
+```jsx
+//예시
+let floatNum = 10.0; // 이 소수점은 integer 10 으로 interpreted 된다 
+```
+
+- NaN - 에러는 아니지만 넘버 연산이 실패했다는 뜻
+- NaN == NaN 는 false 이며 ECMAScript 는 NaN을 구별 할 수 있는 isNaN() 함수를 제공함
