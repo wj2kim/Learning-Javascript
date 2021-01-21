@@ -204,3 +204,47 @@ let floatNum = 10.0; // 이 소수점은 integer 10 으로 interpreted 된다
 
 - NaN - 에러는 아니지만 넘버 연산이 실패했다는 뜻
 - NaN == NaN 는 false 이며 ECMAScript 는 NaN을 구별 할 수 있는 isNaN() 함수를 제공함
+- number() → true 는 1 false 는 0 으로 convert 됨
+- number() → null 은 0 , undefined 는 NaN
+
+### String 의 특성
+
+- ECMAScript에서 String 은 immutable 하다 ( 불변 : 생성된 값은 변할 수 없다. 기존 값을 제거하고 새로운 값을 넣어줘야함)
+
+```jsx
+let lang = "Java:
+lang = lang + "Script";
+// 10 charater 크기의 new String 을 만들어서 "Java" 와 "Script" 로 채운 것 
+// 그리고 "Java"와 "Script"는 삭제 된다. 
+// 이러한 이유 때문에 오래된 브라우저에서는 string concatenation의 비용이 상당하다. 
+```
+
+- string conversion → use .toString() . Numbers, booleans, objects, string 에서만 사용 가능하다.
+- template literals 는 정확히 말하면 string 이 아니라 string 으로 즉시 평가 되는 자바스크립트의 특별한 문법 표현이다.
+- template literals 의 interpolated variables 는 toString() 을 통해 string 으로 변환 된다.
+
+### Template Literal Tag Functions
+
+```jsx
+let a = 6;
+let b = 9;
+
+function simpleTag(strings, aval, eval, sum) {
+	console.log(strings);
+	console.log(aval);
+	console.log(eval);
+	console.log(sum);
+
+	return 'foobar';
+}
+
+let untaggedResult = `${ a } + ${ b } = ${ a + b }`;
+let taggedResult = simpleTag`${ a } + ${ b } = ${ a + b }`;
+// ["", " + ", " = ", ""]
+// 6 
+// 9 
+// 15
+
+console.log(untaggedResult) //"6 + 9 = 15"
+console.log(taggedResult); // "foobar"
+```
