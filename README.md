@@ -248,3 +248,10 @@ let taggedResult = simpleTag`${ a } + ${ b } = ${ a + b }`;
 console.log(untaggedResult) //"6 + 9 = 15"
 console.log(taggedResult); // "foobar"
 ```
+
+### 심볼 타입 (Symbol Type)
+
+- ECMAScript 6 에서 처음 나옴
+- primitive values
+- unique and immutable
+- 객체(Object) 의 unique 한 속성을 보장하고 싶을때 사용함
