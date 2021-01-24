@@ -255,3 +255,35 @@ console.log(taggedResult); // "foobar"
 - primitive values
 - unique and immutable
 - 객체(Object) 의 unique 한 속성을 보장하고 싶을때 사용함
+
+```jsx
+let sym = Symbol() // symbol 인스턴스화 
+typeof sym = symbol // symbol primitive type 
+```
+
+- new 키워드로 초기화 시킬 수 없음
+- 각자 다른 runtime 간 Sybol 을 공유하거나 사용하고 싶을때 string-keyed global symbol registry 를 사용 할 수 있음
+
+```jsx
+let fooGlobalSymbol  = Symbol.for();
+console.log(typeof fooGlobalSymbol) // symbol
+```
+
+- Symbol.for()의 각각의 string key는  idenpotent ( 연산을 여러번해도 결과가 달라지지 않는 성질) 연산자 성질을 갖고있다.
+- 가장 처음에 콜 될때 global runtime registry 를 체크 하고 없다면 new symbol instance를 생성하고 registry에 추가 한다. 만약 체크 했을때 있다면 해당 instance를 재사용 한다.
+
+```jsx
+let localSymbol = Symbol('foo');
+let globalSymbol = Symbol.for('foo');
+console.log(localSymbol === globalSymbol) // false
+```
+
+### Symbol.hasInstance
+
+- 해당 부모의 인스턴스인지 알 수 있음
+
+```jsx
+function Foo() {
+	let f = new Foo();
+	console.log(Foo[Symbol.hasInstance](f)); //true
+```
