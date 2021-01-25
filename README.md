@@ -287,3 +287,25 @@ function Foo() {
 	let f = new Foo();
 	console.log(Foo[Symbol.hasInstance](f)); //true
 ```
+
+### Symbol.iterator
+
+- 객체의 default Iterator 를 반환하는 메소드
+- called by for-of statement
+
+### Symbol.match
+
+- Called by String.prototype.match() 메소드
+
+## Object  타입 (Object Type)
+
+- nonspecific groups of data and functionality
+- new 연산자를 통해 생성
+- 모든 Object 는 다음과 같은 base 속성과 메소드를 가지고 있다
+    1. constructor (function)
+    2. hasOwnProperty (property name)  
+    3. isPrototypeof (object) - 해당 object 가 다른 object의 프로토타입인지 알아보는것
+    4. propertyIsEnumerable - for-in statement 로 enumerate 가능한지
+    5. toLocaleString() - returns string that is appropriate for the locale of 실행환경
+    6. toString() - return string
+    7. valueOf() - object 의 value
