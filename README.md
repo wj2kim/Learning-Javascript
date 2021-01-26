@@ -309,3 +309,79 @@ function Foo() {
     5. toLocaleString() - returns string that is appropriate for the locale of 실행환경
     6. toString() - return string
     7. valueOf() - object 의 value
+
+## 곱셈 연산자
+
+- multiply, divide, modulus.
+- empty  string → 0, Boolean value of true → 1
+- modulus ( a.k.a remainder )
+
+## 지수 함수 ( Exponential function )
+
+- ECMAScript 7 부터 Math.pow() 는 ** operator 을 따로 갖게 됨
+
+```jsx
+console.log(Math.pow(3, 2)l //9
+console.log(3 ** 2) //9
+
+let squared = 3;
+squared **= 2;
+console.log(squared); //9
+```
+
+## Equal and Not Equal
+
+- null == undefined → true
+- "NaN" == NaN → false
+- 5 == NaN → false
+- NaN == Nan → false
+- false == 0 → true
+- true == 1 → true
+- null == 0 → false
+
+## Comma Operator
+
+- single statement 로 실행시켜준다
+
+```jsx
+let num1 = 1, num2 =2, num3 = 3
+
+let num = (5, 1, 4, 8, 0); // always num becomes 0 
+```
+
+## for loop
+
+- 아래와 같이 for-loop 을 while 문과 비슷하게 만들 수 있다
+
+```jsx
+let count = 10;
+let i = 0;
+for (; i < count; ) {
+	console.log(i);
+	i++;
+}
+```
+
+- 이러한 유연성 때문에 for statement는 어떠한 언어에서도 쓰인다
+
+## for-in Statement
+
+- 객체에서 문자열로 키가 지정된 모든 열거 가능한 속성에 대해 반복함
+- ECMAScript의 Object 프로퍼티의 순서는 보장되어있지 않기때문에 해당 statement도 order는 보장하지 않음
+
+## for-of Statement
+
+- iterable object 에 대해 반복함
+- next() 메소드를 통해 order 를 보장함
+
+## Labeled Statement
+
+- 나중에 사용하기 위해 statement 를 label 할 수 있다
+
+```jsx
+start: for (let i = 0; i < count; i++ ) {
+	console.log(i);
+}
+```
+
+- 반복문에 레이블을 붙이고 break나 continue 구문을 사용해 반복문의 어느 위치에서 작업을 멈추고 어느 위치에서 다시 수행할지를 알려줄 수 있다.
