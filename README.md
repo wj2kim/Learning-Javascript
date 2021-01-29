@@ -385,3 +385,28 @@ start: for (let i = 0; i < count; i++ ) {
 ```
 
 - 반복문에 레이블을 붙이고 break나 continue 구문을 사용해 반복문의 어느 위치에서 작업을 멈추고 어느 위치에서 다시 수행할지를 알려줄 수 있다.
+
+## Switch Statement
+
+- 원치않는 다음 case statement를 타지 않게 각각의 케이스 안에 break statement 를 넣는것이 가장 좋다
+- 자바스크립트의 switch case 는 numbers type 만 되는 많은 언어와 달리 모든 데이터 타입을 받을 수 있다. strings, object 등등
+- case 값이 constants 값이 아닌 아래와 같은 표현식이 될 수 있다
+
+```jsx
+switch ("hello world") {
+	case "hello" + "world":
+		console.log("Greeting was found.");
+		break;
+	default:
+		console.log("asdfadf")
+}
+```
+
+# 간단 요약
+
+- basic type : Undefined, Null, Boolean, Number, String, and Symbol
+- 다른 언어와는 다르게 숫자 타입이 integer 와 float 로 나눠져 있지 않고 numbers 하나로 통일됨
+- 모든 언어의 기본이 되는 Object 는 complex data type
+- strict mode 는 에러를 유발시킬 수 있는 부분들을 미리 차단해주는 제한 방법론
+- 반환 값이 없는 함수라도 undefined 라는 special value 를 반환함
+
