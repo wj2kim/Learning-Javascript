@@ -410,3 +410,62 @@ switch ("hello world") {
 - strict mode 는 에러를 유발시킬 수 있는 부분들을 미리 차단해주는 제한 방법론
 - 반환 값이 없는 함수라도 undefined 라는 special value 를 반환함
 
+# Variables, Scope and Memory
+
+## Primitive과 Reference values
+
+- ECMAScript의 변수는 두가지의 다른 데이터 type 을 가지고 있다.
+    1. primitive values 
+    2. reference values
+- primitive values 는 atomic 한 데이터다
+- reference values 는 수많은 values 들로 이루어진 데이터다
+- 값이 변수에 할당될떄 자바스크립트 엔진은 이 값이 primitive 인지 reference 인지 판별한다.
+- reference values 는 메모리에 저장되는 object 이다.
+- 자바스크립트는 메모리에 직접 접근을 하지 못해서 reference (참조) 를 통해서 접근한다.
+- 수 많은 언어들은 String이 object이며 reference type 으로 여기는데 ECMAScript는 그렇지 않다.
+
+### Copying values
+
+- Reference Type 은 변수를 복사할 때 주소값을 복사하기 때문에 복사본의 값을 바꾸어도 원본의 값이 바뀐다
+
+### Determining Type
+
+- 연산자 type 은 primitive type 을 가려낼 수 있는 좋은 방법이다. (sting, number, Boolean, undefined 인지)
+- type of null is object
+- obejct 의 type 을 알아내기 위해선 instanceof operator 를 사용하면 좋다
+
+### 실행 컨텍스트와 스코프
+
+- 웹브라우저 → global context는 window object 이다
+- var 키워드로 생성된 전역변수와 함수들은 window 객체의 properties와 함수로 종속된다.
+- let과 const 키워드로 생성된 window 객체로 종속되지 않고 해당 스코프체인에 등록된다.
+- 실행 컨텍스트가 모든 코드를 실행하고 나면 자신에게 정의 된 모든 변수와 함수를 지운다. 애플리케이션이 종료될때까지 전역 컨텍스트는 지워지지 않는다. ( web page close)
+- 함수를 호출할때는 함수 각각의 컨텍스트가 있다.
+- 함수가 코드를 실행하면 함수의 컨텍스트가 context stack 으로 push 된다. 함수가 모두 끝나고 나면 stack 가 pop 이 되고 그 전에 실행되던 컨텍스트로 돌아간다.
+- 코드가 컨텍스트 안에서 실행되면 변수 객체의 스코프 체인이 생성된다.
+- 스코프 체인의 생성 목적은 실행 컨텍스트의 변수와 함수 접근 할때 순차적으로 접근해야 하기 때문이다.
+- 전역 컨텍스트 변수 객체는 항상 스코프 체인 마지막이다
+
+### 스코프 체인 Augmentaion
+
+- 2가지 실행 컨텍스트 타입(global , function) 이 있지만 스코프체인의 augmentation을 할 수 있는 다른 방법이 있다.
+    1. try-catch 문의 catch 블록 
+    2. with 문 
+
+### var 선언
+
+- 호이스팅에 의해서 함수의 가장 윗단이나 전역 스코프의 가장 윗단에 위치하게 됨
+- 떄문에 선언이 앞에 안되어 있어도 값을 할당 할 수 있음
+
+### let 선언
+
+- var와 비슷하지만 블록레벨에 스코프 되어 있다.
+- 블록 스콥은 중가로 안에 있는 세트 라고 보면 된다.
+- var와 다르게 같은 블록 안에서 중복으로 생성 할 수 없다. (syntaxError)
+- let 은 기술적으로 자바스크립트 실행환경에서 호이스팅이 되지만 "temporal dead zone" 때문에 선언 전에 사용하는 것이 막혀져 있다. 호이스팅이 var 과 다르게 동작한다.
+
+### const 선언
+
+- const 선언은 primitive 혹은 object 의 top-level 에만 적용된다. 다시 말해 const 선언을 한 object는 다른 참조 값으로 대체 될 수 없지만 object 안에 key들에게까지 적용되지 않는다.
+- object 안에 있는 값까지 immutable(불면) 만들고 싶다면 Object.freeze() 를 사용해야한다.
+
