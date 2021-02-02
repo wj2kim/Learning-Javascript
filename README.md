@@ -469,3 +469,47 @@ switch ("hello world") {
 - const 선언은 primitive 혹은 object 의 top-level 에만 적용된다. 다시 말해 const 선언을 한 object는 다른 참조 값으로 대체 될 수 없지만 object 안에 key들에게까지 적용되지 않는다.
 - object 안에 있는 값까지 immutable(불면) 만들고 싶다면 Object.freeze() 를 사용해야한다.
 
+# Garbage Collection (GC)
+
+- 자바스크립트는 garbaged-collected 언어이다.
+- 코드 실행시 메모리 관리는 실행환경이 책임 진다는 소리
+- 브라우저에서 사용되는 두개의 전통적 방식의 GC 관리법
+    1. mark-and-sweep
+    2. reference counting
+
+### Mark-and-Sweep
+
+- most popular form of garbage collection
+- 변수가 함수안에서 선언되면 컨텍스트 안에 있다고도 표현된다
+- 컨텍스트 안에 있는 변수는 메모리 해제가 되어선 안되지만 ( 변수를 언제 또 사용할 지 모르니 ) 컨텍스트에서 벗어난다면 메모리가 해제 된다
+- "in-context" 혹은 "out-of-context"
+- GC 가 실행될때 메모리에 들어있는 변수들을 모두 마킹한다.
+- GC Root들은 힙 외부에서 접근할 수 있는 변수나 오브젝트를 뜻하고 여기서 시작해 모든 오브젝트와 오브젝트들이 참조하는 다른 오브젝트들을 탐색해서 mark 한다 (mark)
+- 그리고 GC가 힙 내부를 돌면서 Mark 되지 않은 메모리를 reclaim 한다. (sweep)
+
+### Reference Counting
+
+- less popular type of garbage collection
+- 모든 값은 자신이 참조하는 모든것을 기록한다
+- 변수가 선언되고 참조값이 할당되면 reference count는 1이다.
+- 같은 값에 다른 변수가 항당되면 reference count는 늘어난다.
+- 막얀 참주된 변수값이 다른 값으로 overwritten 이 된다면 reference count 는 줄어든다.
+- reference count 가 0이 된다면 메모리를 안전하게 해제할 수 있다.
+
+```jsx
+// reference counting 방식의 문제점 
+
+function problem() {
+	let objectA = new Object();
+	let objectB = new Object();
+
+	objectA.someOtherObject = objectB;
+	objectB.anotherObject = objectA;
+}
+
+// 각각의 objectA 와 objectB는 각자를 참조하고 있고 reference count 는 2이다. 
+// mark-and-sweep system에서는 이 두 object는 함수가 실행된 후 scope에서 사라지니 문제가 없다.
+// 하지만 reference counting 방식에선 함수가 종료되도 계속해서 종료 하기 때문에 reference count 가 절대로 0 이 될 수 없음으로 
+// 무한 반복 되어 메모리 해제가 되지 않고  낭비가 될것이다. 
+```
+
