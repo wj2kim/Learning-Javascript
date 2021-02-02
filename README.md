@@ -513,3 +513,27 @@ function problem() {
 // 무한 반복 되어 메모리 해제가 되지 않고  낭비가 될것이다. 
 ```
 
+### 메모리 해제 예시
+
+```jsx
+let element = document.getElementById("some_element");
+let myObject = new Object();
+myObject.element = element;
+element.someObject = myObject;
+```
+
+위의 코드를 보면 DOM element 와 native JavaScript 객체인 myObject 는 서로를 참조(순환 참조) 하고 있다. myObject 변수는 element를 가르키는 element 속성을 지녔고, element 변수는 myObject를 가르키는 someObject 라는 속성을 지녔다. 이런 순환 참조 때문에 해당 DOM element가 페이지에서 사라지더라도 메모리 reclaimed (재할당) 을 할 수 없다.
+
+이러한 낭비를 해결하기 위해서는 사용을 끝낸 native JavaScript 객체와 DOM elements 의 참조 관계를 끊어 주어야 한다. 
+
+```jsx
+myObject.element = null;
+element.someObject = null;
+```
+
+변수에 null 값을 할당하면 변수와 참조하고 있던 값을 끊어 줄 수 있다. Garbage Collector 가 실행될 때 이 값은 삭제되고 메모리는 재할당 된다.
+
+### Performance
+
+Garbage collector는 주기적으로 실행되고 변수가 많이 할당 되어 있는 메모리에선 비용이 많이 들기 때문에 시행 타이밍이 중요하다. 예를 들어 모바일기기의 시스템 메모리는 굉장히 한정적이기 때문에 garbage collection은 기기의 속도와 랜더링 속도에 지장을 줄 수 있다. Garbage collection은 언제 실행될지 모르기 때문에 garbarge collection이 빠르고 최적의 상태로 지나갈 수 있게 코드를 잘 organize 하는것이 best strategy 이다.
+
