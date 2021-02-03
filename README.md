@@ -535,5 +535,29 @@ element.someObject = null;
 
 ### Performance
 
-Garbage collector는 주기적으로 실행되고 변수가 많이 할당 되어 있는 메모리에선 비용이 많이 들기 때문에 시행 타이밍이 중요하다. 예를 들어 모바일기기의 시스템 메모리는 굉장히 한정적이기 때문에 garbage collection은 기기의 속도와 랜더링 속도에 지장을 줄 수 있다. Garbage collection은 언제 실행될지 모르기 때문에 garbarge collection이 빠르고 최적의 상태로 지나갈 수 있게 코드를 잘 organize 하는것이 best strategy 이다.
+Garbage collector는 주기적으로 실행되고 변수가 많이 할당 되어 있는 메모리에선 비용이 많이 들기 때문에 시행 타이밍이 중요하다. 예를 들어 모바일기기의 시스템 메모리는 굉장히 한정적이기 때문에 garbage collection은 기기의 속도와 랜더링 속도에 지장을 줄 수 있다. Garbage collection은 언제 실행될지 모르기 때문에 garbarge collection이 빠르고 최적의 상태로 지나갈 수 있게 코드를 잘 organize 하는것이 best strategy 이다.### 메모리 관리
+
+GC 프로그래밍 환경에서는 개발자는 메모리 관리에 신경쓰지 않아도 되지만 자바스크립트가 특별한 환경에서 실행될때는 신경을 써야 한다. 브라우저에서 사용가능한 메모리의 양은 데스크톱 어플리케이션보다 현저하게 낮다. (mobile 브라우저는 훨씬 심하게 좋지 않다). 변수 할당과 콜 스택과 싱글스레드안에서 실행되는 statement 들이 영향을 받을 수 있다. 
+
+메모리 관리에 가장 좋은 방법은 코드 실행에 필수적인 데이터만 사용하는 것이다. 데이터가 더이상 필수적이지 않을때, null 처리를 해주는 것이 좋다. 참조를 끊어주는 것이 좋다. (it is call dereferencing). 보통 전역 값이나 전역 객체의 property에 해당한다. 로컬 변수는 context 밖으로 나갈 시 자동으로 dereferenced 되기 때문에이다. 
+
+```jsx
+function createPerson(name) {
+	let localPerson = new Object();
+	localPerson.name = name;
+	return localPerson;
+}
+
+let globalPerson = createPerson("Nicholas");
+
+// do something with globalPerson
+
+globalPerson = null;
+```
+
+위의 코드에서 globalPerson 변수는 createPerson() 의 return 값이 할당 되어 있다. createPerson() 안에는 localPerson 이 객체를 만들고 name property를 추가한다. localPerson 변수는 return 되고 globalPerson에 할당된다. localPerson 은 createPerson()의 실행이 끝나면 context에서 나가기 때문에 따로 dereferencing 을 해줄 필요가 없다. 하지만 globalPerson은 전역변수 이기때문에 사용하지 않는다면 null 값을 할당해주면서 dereferencing 을 해줄 필요가 있다. 
+
+### const 와 let 선언은 performance를 증가시켜준다
+
+- const 와 let 키워드는 코드스타일을 세련되게 만들어 줄뿐더러 garbage collection 프로세스에도 도움이 된다.  garbage collection은 var선언의 함수 스코프보다 const , let의 블록 스코프에 더 빨리 접근한다.
 
