@@ -563,3 +563,18 @@ globalPerson = null;
 
 - const 와 let 키워드는 코드스타일을 세련되게 만들어 줄뿐더러 garbage collection 프로세스에도 도움이 된다.  garbage collection은 var선언의 함수 스코프보다 const , let의 블록 스코프에 더 빨리 접근한다.
 
+### Object pools
+
+- 객체가 초기화된 후 scope 에서 나가게 되면 브라우저는 더 공격적으로 garbage collection 을 실행시키기 때문에 애플리케이션의 성능은 하락합니다.
+
+```jsx
+// 좋지않은 객체 초기화 방법
+function add(a, b) {
+	let result = new Vector();
+	result.x = a.x + b.x;
+	result.y = a.y + b.y;
+	return result;
+}
+```
+
+- 위의 함수안에서 Vector 객체를 초기화시키면 힙에 올라갑니다. 그리고 호출한곳으로 return 됩니다. 만약 이 vector object 의 생명이 짧다면 금방 참조가 끊길테고 GC의 대상이 됩니다. 그리고 이 함수가 주기적으로 호출된다면 GC 스케쥴러는 이를 감지해 주기적으로 감지하게 됩니다. 때문에 이렇게 함수내부에서 객체를 초기화하는 dynamic vector creation 방식 보다 vector object를 넘겨 받는 방식으로 만드는 것이 좋습니다.
