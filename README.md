@@ -578,3 +578,21 @@ function add(a, b) {
 ```
 
 - 위의 함수안에서 Vector 객체를 초기화시키면 힙에 올라갑니다. 그리고 호출한곳으로 return 됩니다. 만약 이 vector object 의 생명이 짧다면 금방 참조가 끊길테고 GC의 대상이 됩니다. 그리고 이 함수가 주기적으로 호출된다면 GC 스케쥴러는 이를 감지해 주기적으로 감지하게 됩니다. 때문에 이렇게 함수내부에서 객체를 초기화하는 dynamic vector creation 방식 보다 vector object를 넘겨 받는 방식으로 만드는 것이 좋습니다.
+
+# 간단 요약
+
+- 두개의 타입으로 저장할 수 있다. 1. primitive value 2. reference values
+- primitive values는 6가지의 primitive type을 지니고 있는 값이다. (Undefined, Null, Boolean, Number, String and Symbol)
+- Primitive value 의 사이즈는 정적이기 때문에 stack memory에 저장된다.
+- primitive value 를 복사하면 완전 복사가 된다.
+- reference value 는 object 이며 heap memory에 저장된다.
+- 실제로 reference value 를 지닌 변수는 object 자체를 변수로 저장하고 있는게 아니라 object 를 가르키는 pointer 를 지니고 있다.
+- reference value를 복사하면 pointer를 복사하는 것이기 때문에 같은 object를 참조하고 있다.
+- typeof 연산자는 값의 primitive type을 판별하고  instanceof 연산자는 reference type 을 판별한다.
+- 모든 변수(primitvie, reference)는 해당 변수의 생명주기를 판별하는 컨텍스트 실행(scope) 시 존재한다.
+- 실행 컨택스트는 전역에, 함수안에, blocks 안ㅇ 존재한다.
+- 새로운 실행 컨텍스트가 들어오면 스콥 체인을 만들어 변수와 함수를 찾는다.
+- 블록이나 함수에 종속되어 있는 local context는 자신의 스콥 안에서만 변수를 찾지 않고 자신에게 속한 모든 컨텍스트안에서 찾는다. + global context.
+- 변수의 실행 컨택스트가 언제 메모리를 해제시킬 지 도와준다
+- 자바스크립트는 가비지 콜렉터를 이용하는 프로그래밍 환경이기 때문에 개발자는 메모리 할당이나 재할당을 수동적으로 할 필요가 없다.
+- 스콥에서 나가게 되는 value는 자동적으로 makred for reclamation 이 되며 가비지 콜렉터가 돌아갈때 타겟이 된다.
