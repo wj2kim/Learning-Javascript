@@ -622,3 +622,58 @@ let someDate = new Date("May 23, 2019"); // Date constructor 는 Date.parse()를
 
 // 위 두개의 코드는 같은 방식으로 동작한다.
 ```
+## The RegExp Type
+
+- ECMAScript는 RegExp type을 통해 regualr expression 을 지원한다.
+
+```jsx
+g - global mode, 모든 string 값에 적용됨 
+i - case-insensitive mode, 패턴과 string 값은 ignore 된다
+m - multiline-mode, one line of text 가 끝나도 matching 값을 찾는다
+y - sticky mode, 마지막 index 에 있는 string 만 찾는다
+u - Unicode mode 가 enabled 인지 알려준다
+```
+
+## Primitive Wrapper Type
+
+- primitive values 를 다루기 쉽게 해주는 3가지의 특별한 reference type 이 있다
+    1. Boolean Type 
+    2. Number Type
+    3. String Type 
+
+```jsx
+let s1 = "some text"
+let s2 = s1.substrong(2);
+```
+
+- 위의 코드에서 s1은 string 을 primitive value를 지닌 변수이다. s1에서 substring() 메소드를 호출한 값이 s2에 저장되어있다.
+- primitive value 는 object 가 아니기 때문에 이론적으로는 메소드를 호출할 수 없다. 하지만 뒷배경에서 많은 일이 일어나고 있다.
+- 두번째 라인에서 s1에 접근할때 read mode 로 접근한다. ( 해당 value 는 메모리로 부터 읽는다 )
+- string 값이 read mode로 접근 될 때
+    1. String type 의 인스턴스를 생성한다
+    2. 해당 메소드를 instance 에서 호출한다
+    3. 인스턴스를 삭제한다
+
+    ```jsx
+    let s1 = new String("some text");
+    let s2 = s1.substring(2);
+    s1 = null;
+    // 이 절차와 같다.
+    ```
+
+- 이러한 특성이 primitive value 를 object 처럼 다룰 수 있게 한다.
+
+### 다른점
+
+- reference type 과 primitive wrapper type 의 다른점은 객체의 생명주기 이다.
+- new 연산자를 통해 reference type을 initiate 하면 scope 에서 사라지기 전까지 memory에 계속 있는다.
+- 자동적으로 생성된 primitive wapper object 는 one line of code 에서만 존재하고 줄을 넘어갈 때 삭제된다.
+- 이러한 특성때문에 프로퍼티나 메소드가 runtime시 추가 될 수 없다.
+
+```jsx
+let s1 = "some text";
+s1.color = "red";
+console.log(s1.color); //undefined
+```
+
+- s1은 세번째 줄에서 접근 되었기 때문에 color 프로퍼티는 사라졌다. ( 두번째 줄에서 생성된 string object 3번째 줄이 실행됬을때 사라졌다. 세번째 줄은 자신의 own string object를 생성하기 때문에 color 프로퍼티가 없다.
