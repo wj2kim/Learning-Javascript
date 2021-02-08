@@ -596,3 +596,29 @@ function add(a, b) {
 - 변수의 실행 컨택스트가 언제 메모리를 해제시킬 지 도와준다
 - 자바스크립트는 가비지 콜렉터를 이용하는 프로그래밍 환경이기 때문에 개발자는 메모리 할당이나 재할당을 수동적으로 할 필요가 없다.
 - 스콥에서 나가게 되는 value는 자동적으로 makred for reclamation 이 되며 가비지 콜렉터가 돌아갈때 타겟이 된다.
+
+#기본 Reference Type
+
+- object (reference value) 는 어떠한 reference type을 갖은 인스턴스이다
+- reference type 의 개념은 class 와 같아보이지만 그렇지 않다.
+- 새로운 Object 는 new 연산자와 constructor 를 통해 생성된다.
+
+```jsx
+let now = new Date();
+// 새로운 Date type의 instance를 생성하고 now 변수 안에 저장됨
+// 사용된 constructor는 Date() 이다. (기본 프로퍼티와 메소드로 생성된 simple 한 object)
+```
+
+## The Date Type
+
+- ECMAScript 의 Date type 은 자바의 [java.util.Date](http://java.util.Date) 으로 부터 파생됨.
+- 01-01-1970 으로 부터 millisecond 단위, 28만 오천 육백십육 년 까지 표현 가능함
+- new Data() 로 인스턴스를 생성할 때 arguments 가 없이 생성하면 현재 날짜와 시간을 반환함.
+
+```jsx
+let someDate = new Date(Date.parse("May 23, 2019"));
+
+let someDate = new Date("May 23, 2019"); // Date constructor 는 Date.parse()를 자동적으로 호출한다.
+
+// 위 두개의 코드는 같은 방식으로 동작한다.
+```
