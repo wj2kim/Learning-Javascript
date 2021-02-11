@@ -677,3 +677,11 @@ console.log(s1.color); //undefined
 ```
 
 - s1은 세번째 줄에서 접근 되었기 때문에 color 프로퍼티는 사라졌다. ( 두번째 줄에서 생성된 string object 3번째 줄이 실행됬을때 사라졌다. 세번째 줄은 자신의 own string object를 생성하기 때문에 color 프로퍼티가 없다.
+
+## The Boolean Type
+
+- Boolean Object 를 만들기 위해선 Boolean constructor 안에 true or false 를 넣는다
+
+```jsx
+let booleanObject = new Boolean(true);
+```
