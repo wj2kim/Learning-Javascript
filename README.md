@@ -678,10 +678,23 @@ console.log(s1.color); //undefined
 
 - s1은 세번째 줄에서 접근 되었기 때문에 color 프로퍼티는 사라졌다. ( 두번째 줄에서 생성된 string object 3번째 줄이 실행됬을때 사라졌다. 세번째 줄은 자신의 own string object를 생성하기 때문에 color 프로퍼티가 없다.
 
-## The Boolean Type
-
-- Boolean Object 를 만들기 위해선 Boolean constructor 안에 true or false 를 넣는다
+- string prototype은 각각의 character를 iterate 할 수 있게 iterator method 를 제공한다.
 
 ```jsx
-let booleanObject = new Boolean(true);
+let message = "abc";
+let stringIterator = message[Symbol.iterator]();
+
+console.log(stringIterator.next()); // {value:"a", done: false}
+console.log(stringIterator.next()); // {value:"b", done: false}
+console.log(stringIterator.next()); // {value:"c", done: false}
+console.log(stringIterator.next()); // {value: undefined, done: true}
 ```
+
+- for of loop 에서 사용될 시 loop는 iterator를 사용해 각각의 character 를 순서에 맞게 조회한다.
+- string iterator 은 destructing 연산자를 사용할 때 유용하다.
+
+```jsx
+let message = "abcde"
+console.log([...message]); // ["a", "b", "c", "d", "e"] string prototype이 @@iterator method를 제공하기에 가능하다
+```
+
