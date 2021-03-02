@@ -698,3 +698,13 @@ let message = "abcde"
 console.log([...message]); // ["a", "b", "c", "d", "e"] string prototype이 @@iterator method를 제공하기에 가능하다
 ```
 
+# 간단 요약
+
+- Reference Types 은 정통적인 객체지향의 class 와 비슷하다.
+- Date Type 은 현재의 시간과 날짜에 대한 정보를 제공한다.
+- RegExp 는 ECMAScipt 를 지원하는 regular-expression의 인터페이스이다.
+- 자바스크립트의 유니크한 점은 자바스크립트의 함수는 function type의 instance 라는 것이다. 즉 function 은 object 라는 뜻이다. function은 object 이기 때문에 method 를 지니고 있다.
+- primitive wrapper type 이 존재하기에 자바스크립트의 primitive values 는 object 처럼 접근 가능하다.
+- two built-in object at the begining of code execution
+1. Global  - web browser 가 대신 window object 를 global object 처럼 사용할 수 있게 해준다.
+2. Math
