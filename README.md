@@ -708,3 +708,49 @@ console.log([...message]); // ["a", "b", "c", "d", "e"] string prototype이 @@it
 - two built-in object at the begining of code execution
 1. Global  - web browser 가 대신 window object 를 global object 처럼 사용할 수 있게 해준다.
 2. Math
+
+
+# Collection Reference Types 
+
+# The Object Type
+
+## Object 선언 방법 두가지
+
+- new 연산자와 object constructor를 사용한 new Object() ;
+- object literal notation
+
+```jsx
+let person = {
+	name: "Nicholas",
+	age: 29,
+}
+
+or 
+
+let person = {};
+person.name = "Nicholas";
+person.age = 29;
+
+// produce an object with name and age property
+```
+
+# The Array Type
+
+- Array(3) 처럼 Array constructor를 사용할때 new operator 를 생략 할 수 있다.
+- Array.from("ABC");  //  ["A", "B", "C"]  - array of single character 로 나눠진다
+- Array.from() 은 array를 shallow copy 한다
+- Array.of() 는 list of argument 를 array 로 만들어준다.
+- const options = [1, , , , , 5] 빈칸을 최대한 피해야한다.
+
+### Indexing into Array
+
+- Array 의 length 는 readOnly 가 아니라 item을 remove 혹은 add  할 수도 있게 한다.
+- array 의 마지막 아이템의 포지션은 무조건 length - 1 이기 때문에 아이템이 새로 등록 될 때 length property가 update 된다.
+- Arrays 의 maximum containing 값은 4,294,967,295 이다. 넘길시 exception 이 뜬다.
+- Array.isArray() - 이 함수의 목적은 젼역 실행 컨텍스트와 상관없이 해당 Array 가 정말 array 인지 판별해준다.
+
+### Iterator Methods
+
+1. keys() - return array's indices
+2. values() - return array's elements
+3. entries() - return array''s index/value pairs
